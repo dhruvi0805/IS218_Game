@@ -1,6 +1,14 @@
 import { defineConfig } from 'vitepress'
 
-const pages = [
+const researchNotebook = [
+  { text: 'Concept comparison', link: '/concepts' },
+  { text: 'Game components', link: '/game' },
+  { text: 'Architecture', link: '/architecture' },
+  { text: 'Research methods', link: '/research-method' },
+  { text: 'Review process', link: '/review-process' },
+]
+
+const projectPlanning = [
   { text: 'Project plan', link: '/plan' },
   { text: 'Research', link: '/research' },
   { text: 'Experiment', link: '/experiment' },
@@ -12,9 +20,11 @@ export default defineConfig({
   description: 'An IS218 research notebook on practice games and visual progress.',
   base: process.env.DOCS_BASE || '/',
   themeConfig: {
-    nav: pages,
-    sidebar: [{ text: 'Research notebook', items: [...pages, { text: 'Concept comparison', link: '/concepts' }, { text: 'Game components', link: '/game' }, { text: 'Architecture', link: '/architecture' }, { text: 'Research methods', link: '/research-method' }, { text: 'Review process', link: '/review-process' }] }],
+    nav: [{ text: 'Project planning', items: projectPlanning }],
+    sidebar: [
+      { text: 'Research notebook', items: researchNotebook },
+      { text: 'Project planning', items: projectPlanning },
+    ],
     socialLinks: [{ icon: 'github', link: 'https://github.com/dhruvi0805/IS218_Game' }],
   },
 })
-
