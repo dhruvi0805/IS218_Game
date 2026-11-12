@@ -21,3 +21,5 @@
 Codex helped narrow scope, locate sources, and draft the documentation. The W3C claim was checked against the original guidance. The feedback paper remains a reading task.
 
 **Check labels.** Planned means a check is specified. Attempted means it was tried and the result is incomplete or inconclusive. Observed means there is a recorded result.
+
+[Full research methods, verification labels, and cross-linking plan](./research-method.md)

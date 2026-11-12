@@ -20,3 +20,7 @@ Can introductory college students identify completed practice and find their nex
 [Project repository](https://github.com/dhruvi0805/IS218_Game) · [Site structure reference](https://github.com/kaw393939/ai-game-research-lab)
 
 Career research cross-link pending the Portfolio Plan site URL.
+
+## Explore NeuroNet
+
+[Compare the games](./concepts.md) · [Explore all game components](./game.md) · [Read the architecture](./architecture.md) · [Browse the research documentation](./research.md)

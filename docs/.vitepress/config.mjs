@@ -13,7 +13,8 @@ export default defineConfig({
   base: process.env.DOCS_BASE || '/',
   themeConfig: {
     nav: pages,
-    sidebar: [{ text: 'Research notebook', items: pages }],
+    sidebar: [{ text: 'Research notebook', items: [...pages, { text: 'Concept comparison', link: '/concepts' }, { text: 'Game components', link: '/game' }, { text: 'Architecture', link: '/architecture' }, { text: 'Research methods', link: '/research-method' }, { text: 'Review process', link: '/review-process' }] }],
     socialLinks: [{ icon: 'github', link: 'https://github.com/dhruvi0805/IS218_Game' }],
   },
 })
+
