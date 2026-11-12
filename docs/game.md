@@ -140,45 +140,17 @@ The network is a progress visualization, not a scientific model of the human bra
 ---
 
 
-## Planned Mini-Games
+## Mini-games
 
-The first version will be intentionally bounded.
+### First release — Pattern Recognition
 
-### Mini-game 1 — Memory
+Complete one five-question number-pattern challenge. For example, the sequence 2, 4, 8, 16 continues with 32.
 
-The player sees a sequence for a limited amount of time and then reproduces it.
+### Later mini-games
 
-Possible progression:
-
-```text
-Level 1 → 4 items
-Level 2 → 5 items
-Level 3 → 6 items
-Level 4 → 7 items
-```
-
-### Mini-game 2 — Pattern Recognition
-
-The player identifies the missing item in a numerical, visual, or symbolic pattern.
-
-Example:
-
-```text
-2 → 4 → 8 → 16 → ?
-```
-
-### Mini-game 3 — Logic
-
-The player solves a short rule-based puzzle.
-
-### Mini-game 4 — Association
-
-The player identifies relationships between concepts or words.
-
-The project can expand later, but these activities are enough to demonstrate the core architecture.
-
----
-
+- **Memory.** Reproduce a hidden sequence, increasing its length over time.
+- **Language and Association.** Identify words related to a concept.
+- **Logic.** Apply a rule to solve a short puzzle.
 
 ## Scope
 
@@ -186,9 +158,7 @@ To keep the project achievable, the first completed version will focus on:
 
 - Account registration/login
 - Interactive brain landing page
-- 3–4 mini-games
-- Skill categories
-- Basic topic association
+- One five-question number-pattern challenge
 - Saved scores/results
 - Private activity history
 - Dashboard
