@@ -2,7 +2,7 @@
 
 ## Research question
 
-****
+**Can introductory college students identify completed practice and find their next action more easily in a skill network or a labeled list?**
 
 The [planned experiment](./experiment.md) compares both layouts using the same mock progress and actions.
 
