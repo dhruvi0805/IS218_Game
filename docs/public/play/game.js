@@ -8,46 +8,98 @@ const questions = [
   { sequence: '1, 1, 2, 3, 5', answer: 8, rule: 'Add the previous two numbers.' },
 ];
 
+const skills = [
+  ['Focus', 'Attention and concentration', '#b88afd'],
+  ['Memory', 'Recall and sequences', '#7bb4ff'],
+  ['Problem Solving', 'Logic and puzzles', '#92ddff'],
+  ['Numerical Reasoning', 'Numbers and estimation', '#c4a1ff'],
+  ['Language', 'Words and associations', '#f4a8f6'],
+  ['Pattern Recognition', 'Find the rule behind number sequences', '#c08fff'],
+  ['Creativity', 'Generate and explore ideas', '#f6acbd'],
+  ['Spatial Reasoning', 'Rotate and compare shapes', '#86e5d5'],
+  ['Social / Emotional Skills', 'Explore perspectives', '#f7bc9b'],
+  ['Reaction Speed', 'Respond to visual cues', '#aee8a1'],
+];
+
+const availableSkill = 'Pattern Recognition';
+const xpPerAnswer = 50;
+const fullGlowXp = 1000;
 const elements = Object.fromEntries(
   ['step', 'challenge', 'intro', 'start', 'play', 'progress', 'sequence',
-    'answer-form', 'answer', 'submit', 'feedback', 'advance', 'storage-note',
-    'empty', 'history'].map(id => [id, document.getElementById(id)])
+    'answer-form', 'answer', 'submit', 'feedback', 'advance', 'empty',
+    'history', 'return', 'training', 'welcome', 'lab', 'player-form',
+    'player-name', 'display-name', 'greeting', 'brain-map', 'lab-title',
+    'glow', 'glow-label', 'skill-title', 'skill-detail', 'skill-xp']
+    .map(id => [id, document.getElementById(id)])
 );
-const storageKey = 'neuronet-attempts-v1';
-const attemptLimit = 10;
-const dateFormat = new Intl.DateTimeFormat(undefined, {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-});
 
-function loadHistory() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(storageKey) ?? '[]');
-    if (!Array.isArray(saved)) return [];
-    return saved.filter(attempt =>
-      Number.isInteger(attempt?.score) && attempt.score >= 0 &&
-      attempt.score <= questions.length && typeof attempt.completedAt === 'string' &&
-      Number.isFinite(Date.parse(attempt.completedAt))
-    ).slice(0, attemptLimit);
-  } catch {
-    elements['storage-note'].textContent = 'Browser storage is unavailable. Scores can be viewed during this visit.';
-    return [];
-  }
-}
-
-const history = loadHistory();
+const session = { playerName: '', displayName: '', xp: 0, attempts: [] };
+let selection;
 let questionIndex = 0;
 let score = 0;
 let answered = false;
 
-function renderHistory() {
-  elements.empty.hidden = history.length > 0;
-  elements.history.replaceChildren(...history.map(attempt => {
+const regionButtons = skills.map(skill => {
+  const [name, , color] = skill;
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'region';
+  button.style.setProperty('--region', color);
+  button.textContent = name;
+  button.setAttribute('aria-pressed', 'false');
+  button.addEventListener('click', () => selectSkill(skill));
+  elements['brain-map'].append(button);
+  return button;
+});
+
+function selectSkill(skill) {
+  selection = skill;
+  const [name, detail] = skill;
+  const playable = name === availableSkill;
+  regionButtons.forEach((button, index) => {
+    button.setAttribute('aria-pressed', String(skills[index] === skill));
+  });
+  elements['skill-title'].textContent = name;
+  elements['skill-detail'].textContent = detail + (playable ? '.' : '. Training is planned.');
+  elements['skill-xp'].textContent = (playable ? session.xp : 0) + ' XP';
+  elements.start.hidden = !playable;
+}
+
+function showLab() {
+  elements.training.hidden = true;
+  elements.welcome.hidden = true;
+  elements.lab.hidden = false;
+  elements.greeting.textContent = 'Welcome, ' + session.displayName + '.';
+  const glow = Math.min(100, Math.floor(session.xp * 100 / fullGlowXp));
+  elements.glow.value = glow;
+  elements['glow-label'].textContent = glow + '%';
+  elements['brain-map'].style.setProperty('--glow', glow / 100);
+  elements.empty.hidden = session.attempts.length > 0;
+  elements.history.replaceChildren(...session.attempts.map(attempt => {
     const row = document.createElement('li');
-    row.textContent = `${attempt.score}/${questions.length} · ${dateFormat.format(new Date(attempt.completedAt))}`;
+    row.textContent = attempt.score + '/' + questions.length + ' · +' + attempt.reward + ' XP';
     return row;
   }));
+  if (selection) selectSkill(selection);
+  elements['lab-title'].focus();
 }
+
+elements['player-form'].addEventListener('submit', event => {
+  event.preventDefault();
+  for (const [property, id] of [['playerName', 'player-name'], ['displayName', 'display-name']]) {
+    const field = elements[id];
+    const value = field.value.trim();
+    if (!value) {
+      field.value = '';
+      field.reportValidity();
+      return;
+    }
+    session[property] = value;
+  }
+  showLab();
+});
+
+elements.return.addEventListener('click', showLab);
 
 function showQuestion() {
   answered = false;
@@ -63,28 +115,25 @@ function showQuestion() {
 }
 
 function finishChallenge() {
-  history.unshift({ score, completedAt: new Date().toISOString() });
-  history.splice(attemptLimit);
-  try {
-    localStorage.setItem(storageKey, JSON.stringify(history));
-  } catch {
-    elements['storage-note'].textContent = 'Browser storage is unavailable. Scores can be viewed during this visit.';
-  }
-  renderHistory();
+  const reward = score * xpPerAnswer;
+  session.xp += reward;
+  session.attempts.unshift({ score, reward });
   elements.play.hidden = true;
-  elements.step.textContent = 'Challenge complete';
-  elements.challenge.textContent = `You scored ${score} out of ${questions.length}`;
-  elements.intro.textContent = 'Your attempt is listed in Attempt history.';
-  elements.start.textContent = 'Play again';
-  elements.start.hidden = false;
+  elements.step.textContent = 'Training complete';
+  elements.challenge.textContent = 'You scored ' + score + ' out of ' + questions.length;
+  elements.intro.textContent = '+' + reward + ' XP earned';
+  elements.return.hidden = false;
   elements.challenge.focus();
 }
 
 elements.start.addEventListener('click', () => {
+  if (selection?.[0] !== availableSkill) return;
   questionIndex = 0;
   score = 0;
-  elements.start.hidden = true;
-  elements.challenge.textContent = 'Number sequences';
+  elements.lab.hidden = true;
+  elements.training.hidden = false;
+  elements.return.hidden = true;
+  elements.challenge.textContent = availableSkill;
   elements.intro.textContent = 'Enter the next number in the sequence.';
   elements.play.hidden = false;
   showQuestion();
@@ -115,5 +164,3 @@ elements.advance.addEventListener('click', () => {
   if (questionIndex === questions.length) finishChallenge();
   else showQuestion();
 });
-
-renderHistory();

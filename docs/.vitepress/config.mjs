@@ -20,7 +20,7 @@ export default defineConfig({
   description: 'An IS218 research notebook on practice games and visual progress.',
   base: process.env.DOCS_BASE || '/',
   themeConfig: {
-    nav: [{ text: 'Project planning', items: projectPlanning }],
+    nav: [{ text: 'NeuroNet V2', link: '/neuronet-v2' }, { text: 'Project planning', items: projectPlanning }],
     sidebar: [
       { text: 'Research notebook', items: researchNotebook },
       { text: 'Project planning', items: projectPlanning },
