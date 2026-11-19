@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100e22">
+<title>NeuroNet · Pattern Recognition</title>
+<style>
+:root{color-scheme:dark;--bg:#100e22;--panel:#19162e;--text:#f5f1ff;--muted:#bdB5d6;--accent:#c7afff;--line:#51416e}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 76% 15%,#392262 0%,transparent 42%),radial-gradient(ellipse at 17% 92%,#20294f 0%,transparent 50%),var(--bg);color:var(--text);font:1rem/1.55 system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle,#c7afff 1px,transparent 1.5px) 12px 6px/73px 79px,radial-gradient(circle,#fff 1px,transparent 1.5px) 36px 30px/151px 127px;opacity:.24}
+main{position:relative;width:min(1100px,calc(100% - 2rem));margin:auto;padding:1.5rem 0 4rem}
+header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:1rem;gap:1rem}
+.brand{font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+a{color:var(--accent);text-underline-offset:4px}
+.hero{display:grid;grid-template-columns:1.12fr 1fr;gap:2rem;align-items:center;padding:3.8rem 0 2.5rem}
+h1,h2,p{margin:0 0 .8rem}
+h1{font-size:clamp(3rem,8vw,6.4rem);letter-spacing:-.08em;line-height:.94}
+h2{font-size:clamp(1.65rem,4vw,2.5rem);letter-spacing:-.045em;line-height:1.15}
+p,.history li{color:var(--muted)}
+.eyebrow{color:#dbbcff;font:700 .72rem/1.5 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
+.orbit{height:230px;display:grid;place-items:center;position:relative}
+.orbit i{position:absolute;width:min(100%,330px);height:130px;border:1px solid #b78aff85;border-radius:50%;transform:rotate(var(--angle));box-shadow:0 0 16px #8863e841}
+.orbit i::after{content:"";position:absolute;top:45%;left:0;width:9px;height:9px;border-radius:100%;background:#e5d3ff;box-shadow:0 0 15px 4px #ae87fd}
+.orbit b{width:90px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f3e4ff,#a67afb 38%,#5b2ea0 72%);box-shadow:0 0 55px #ad76fa95}
+.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:1rem}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(1.1rem,4vw,2rem)}
+.sequence{font:700 clamp(1.3rem,4vw,2.1rem)/1.5 ui-monospace,monospace;letter-spacing:.07em;color:var(--text)}
+progress{width:100%;height:.6rem;accent-color:#c5a5ff}
+form{margin-top:1rem}
+label{display:block;font-weight:650;margin-bottom:.3rem}
+input,button{font:inherit;border-radius:9px;min-height:44px}
+input{width:min(100%,10rem);padding:.45rem .65rem;background:#100d20;border:1px solid #79649d;color:var(--text)}
+button{border:0;background:#c7afff;color:#201332;font-weight:800;padding:.5rem 1rem;cursor:pointer}
+button:hover{background:#e1d1ff}
+:focus-visible{outline:3px solid #f1dcff;outline-offset:4px}
+.feedback{min-height:1.55em;margin-top:.8rem}
+.history{padding-left:1.2rem;margin-bottom:0}
+.history li+li{margin-top:.5rem}
+[hidden]{display:none}
+@media(max-width:680px){.hero,.layout{grid-template-columns:1fr}.hero{padding-top:2.5rem;gap:.5rem}.orbit{height:180px;overflow:hidden}}
+</style>
+<script src="./game.js" defer></script>
+</head>
+<body>
+<main>
+<header><span class="brand">NeuroNet</span><a href="../">Project research</a></header>
+<section class="hero">
+<div><p class="eyebrow">Pattern recognition</p><h1>Find the<br>pattern.</h1><p>Five number sequences. Predict what comes next and see the rule behind each answer.</p></div>
+<div class="orbit" aria-hidden="true"><i style="--angle:25deg"></i><i style="--angle:-25deg"></i><i style="--angle:82deg"></i><b></b></div>
+</section>
+<div class="layout">
+<section class="card" aria-labelledby="challenge">
+<p class="eyebrow" id="step">5 questions</p>
+<h2 id="challenge" tabindex="-1">Number sequences</h2>
+<p id="intro">Earn one point for every correct answer.</p>
+<button id="start" type="button">Start challenge</button>
+<div id="play" hidden>
+<progress id="progress" max="5" value="0" aria-label="Questions answered"></progress>
+<p class="sequence" id="sequence"></p>
+<form id="answer-form">
+<label for="answer">Next number</label>
+<input id="answer" type="number" step="1" required>
+<button id="submit" type="submit">Check answer</button>
+</form>
+<p class="feedback" id="feedback" role="status" tabindex="-1"></p>
+<button id="advance" type="button" hidden>Next question</button>
+</div>
+</section>
+<aside class="card" aria-labelledby="history-title">
+<p class="eyebrow">Progress</p><h2 id="history-title">Attempt history</h2>
+<p id="storage-note">Scores are saved in this browser.</p>
+<p id="empty">No completed attempts yet.</p>
+<ol class="history" id="history"></ol>
+</aside>
+</div>
+</main>
+</body>
+</html>
