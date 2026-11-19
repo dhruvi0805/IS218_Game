@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100e22">
+<title>NeuroNet V2 · Pattern Recognition</title>
+<link rel="stylesheet" href="./play.css">
+<script type="module" src="./game.js"></script>
+</head>
+<body>
+<main>
+<section id="training" class="card" hidden aria-labelledby="challenge">
+  <p class="eyebrow" id="step">5 questions</p>
+  <h1 id="challenge" tabindex="-1">Pattern Recognition</h1>
+  <p id="intro">Enter the next number in the sequence.</p>
+  <div id="play">
+    <progress id="progress" max="5" value="0" aria-label="Questions answered"></progress>
+    <p class="sequence" id="sequence"></p>
+    <form id="answer-form">
+      <label for="answer">Next number</label>
+      <input id="answer" type="number" step="1" required>
+      <button id="submit" type="submit">Check answer</button>
+    </form>
+    <p class="feedback" id="feedback" role="status" tabindex="-1"></p>
+    <button id="advance" type="button" hidden>Next question</button>
+  </div>
+  <a id="return" href="./" hidden>Return to brain</a>
+</section>
+</main>
+</body>
+</html>

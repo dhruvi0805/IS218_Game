@@ -5,106 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#100e22">
 <title>NeuroNet V2 · Brain Training</title>
-<style>
-:root{color-scheme:dark;--bg:#100e22;--panel:#19162e;--text:#f5f1ff;--muted:#bdB5d6;--accent:#c7afff;--line:#51416e}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 76% 15%,#392262 0%,transparent 42%),radial-gradient(ellipse at 17% 92%,#20294f 0%,transparent 50%),var(--bg);color:var(--text);font:1rem/1.55 system-ui,sans-serif}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle,#c7afff 1px,transparent 1.5px) 12px 6px/73px 79px,radial-gradient(circle,#fff 1px,transparent 1.5px) 36px 30px/151px 127px;opacity:.24}
-main{position:relative;width:min(1100px,calc(100% - 2rem));margin:auto;padding:1.5rem 0 4rem}
-header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:1rem;gap:1rem}
-.brand{font-weight:800;letter-spacing:.2em;text-transform:uppercase}
-a{color:var(--accent);text-underline-offset:4px}
-.hero{display:grid;grid-template-columns:1.12fr 1fr;gap:2rem;align-items:center;padding:3.8rem 0 2.5rem}
-h1,h2,p{margin:0 0 .8rem}
-h1{font-size:clamp(3rem,8vw,6.4rem);letter-spacing:-.08em;line-height:.94}
-h2{font-size:clamp(1.65rem,4vw,2.5rem);letter-spacing:-.045em;line-height:1.15}
-p,.history li{color:var(--muted)}
-.eyebrow{color:#dbbcff;font:700 .72rem/1.5 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase}
-.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:1rem}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:clamp(1.1rem,4vw,2rem)}
-.sequence{font:700 clamp(1.3rem,4vw,2.1rem)/1.5 ui-monospace,monospace;letter-spacing:.07em;color:var(--text)}
-progress{width:100%;height:.6rem;accent-color:#c5a5ff}
-form{margin-top:1rem}
-label{display:block;font-weight:650;margin-bottom:.3rem}
-input,button{font:inherit;border-radius:9px;min-height:44px}
-input{width:min(100%,10rem);padding:.45rem .65rem;background:#100d20;border:1px solid #79649d;color:var(--text)}
-button{border:0;background:#c7afff;color:#201332;font-weight:800;padding:.5rem 1rem;cursor:pointer}
-button:hover{background:#e1d1ff}
-:focus-visible{outline:3px solid #f1dcff;outline-offset:4px}
-.feedback{min-height:1.55em;margin-top:.8rem}
-.history{padding-left:1.2rem;margin-bottom:0}
-.history li+li{margin-top:.5rem}
-[hidden]{display:none}
-@media(max-width:680px){.hero,.layout{grid-template-columns:1fr}.hero{padding-top:2.5rem;gap:.5rem}.orbit{height:180px;overflow:hidden}}
-.hero{grid-template-columns:1fr;padding:2.4rem 0 1.25rem}
-.hero h1{font-size:clamp(3rem,8vw,6rem)}
-.lab-grid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:1rem;align-items:start}
-.brain-map{--glow:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;max-width:33rem;margin:1.25rem auto;padding:14px;isolation:isolate;position:relative}
-.brain-map::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:46% 46% 44% 44% / 25% 25% 33% 33%;background:#151025;box-shadow:0 0 65px #b45cff;opacity:var(--glow);pointer-events:none}
-.region{background:color-mix(in srgb,#221831,var(--region) calc(var(--glow) * 45%));border:1px solid color-mix(in srgb,var(--region) 48%,#20162d);color:#f6edff;border-radius:40% 26% 38% 22% / 30% 55% 30% 55%;min-height:54px;padding:.55rem .7rem;font-size:.85rem;overflow-wrap:anywhere}
-.region:nth-child(even){border-radius:26% 40% 22% 38% / 55% 30% 55% 30%}
-.region:nth-child(-n+2){border-radius:85% 27% 32% 15% / 90% 35% 48% 30%}
-.region:nth-child(2){border-radius:27% 85% 15% 32% / 35% 90% 30% 48%}
-.region:nth-last-child(-n+2){border-bottom-left-radius:60%;border-bottom-right-radius:60%}
-.region:hover,.region:focus-visible,.region[aria-pressed=true]{background:color-mix(in srgb,var(--region) 35%,#251832);color:white;border-color:var(--region)}
-.region[aria-pressed=true]{box-shadow:inset 0 0 13px color-mix(in srgb,var(--region) 60%,transparent)}
-#lab progress{display:block;margin:.35rem 0 1rem}
-#player-form input{width:min(100%,22rem);margin-bottom:.85rem}
-#training{width:min(100%,44rem);margin-inline:auto}
-@media(max-width:680px){.lab-grid{grid-template-columns:1fr}}
-</style>
-<script src="./game.js" defer></script>
+<link rel="stylesheet" href="./play.css">
+<script type="module" src="./map.js"></script>
 </head>
 <body>
-<main>
-<header><span class="brand">NeuroNet</span><a href="../neuronet-v2.html">V2 project notes</a></header>
-<section class="hero">
-  <div><p class="eyebrow">NeuroNet V2</p><h1>Train your brain.</h1><p>Explore the brain map, train a skill, and earn XP to light up your lab.</p></div>
-</section>
-<section id="welcome" class="card" aria-labelledby="welcome-title">
-  <h2 id="welcome-title">Enter the lab</h2>
-  <p>Your names and progress stay in this session.</p>
-  <form id="player-form">
-    <label for="player-name">Player name</label><input id="player-name" type="text" maxlength="40" required>
-    <label for="display-name">Display name</label><input id="display-name" type="text" maxlength="40" required>
-    <div><button type="submit">Open brain map</button></div>
-  </form>
-</section>
-<section id="lab" class="lab-grid" hidden aria-label="Training lab">
-  <div class="card">
-    <h2 id="lab-title" tabindex="-1">Your brain map</h2><p id="greeting"></p>
-    <p>Select a region to see what it trains.</p>
-    <div class="brain-map" id="brain-map" role="group" aria-label="Brain regions"></div>
-    <label for="glow">Overall brain glow <span id="glow-label">0%</span></label>
-    <progress id="glow" max="100" value="0"></progress>
-  </div>
-  <div>
-    <section class="card" aria-labelledby="skill-title">
-      <h2 id="skill-title">Choose a skill</h2><p id="skill-detail"></p><p id="skill-xp"></p>
-      <button id="start" type="button" hidden>Train this region</button>
-    </section>
-    <section class="card" aria-labelledby="history-title" style="margin-top:1rem">
-      <h2 id="history-title">Session attempts</h2><p id="empty">No completed attempts yet.</p><ol class="history" id="history"></ol>
-    </section>
-  </div>
-</section>
-<section id="training" class="card" hidden aria-labelledby="challenge">
-  <p class="eyebrow" id="step">5 questions</p>
-  <h2 id="challenge" tabindex="-1">Pattern Recognition</h2>
-  <p id="intro">Enter the next number in the sequence.</p>
-  <div id="play">
-    <progress id="progress" max="5" value="0" aria-label="Questions answered"></progress>
-    <p class="sequence" id="sequence"></p>
-    <form id="answer-form">
-      <label for="answer">Next number</label>
-      <input id="answer" type="number" step="1" required>
-      <button id="submit" type="submit">Check answer</button>
+<main class="entry">
+  <section id="welcome" class="card" aria-labelledby="welcome-title">
+    <h1 id="welcome-title">NeuroNet</h1>
+    <form id="player-form">
+      <label for="display-name">Display name</label>
+      <input id="display-name" type="text" maxlength="40" required>
+      <button type="submit">Continue</button>
     </form>
-    <p class="feedback" id="feedback" role="status" tabindex="-1"></p>
-    <button id="advance" type="button" hidden>Next question</button>
-  </div>
-  <button id="return" type="button" hidden>Return to brain</button>
-</section>
+  </section>
+  <nav class="brain-map" id="brain-map" aria-label="Brain regions" hidden>
+    <span class="region" style="--region:#b88afd">Focus <small>Unavailable</small></span>
+    <span class="region" style="--region:#7bb4ff">Memory <small>Unavailable</small></span>
+    <span class="region" style="--region:#92ddff">Problem Solving <small>Unavailable</small></span>
+    <span class="region" style="--region:#c4a1ff">Numerical Reasoning <small>Unavailable</small></span>
+    <span class="region" style="--region:#f4a8f6">Language <small>Unavailable</small></span>
+    <a class="region" style="--region:#c08fff" href="./pattern-recognition.html">Pattern Recognition <small>Play</small></a>
+    <span class="region" style="--region:#f6acbd">Creativity <small>Unavailable</small></span>
+    <span class="region" style="--region:#86e5d5">Spatial Reasoning <small>Unavailable</small></span>
+    <span class="region" style="--region:#f7bc9b">Social / Emotional Skills <small>Unavailable</small></span>
+    <span class="region" style="--region:#aee8a1">Reaction Speed <small>Unavailable</small></span>
+  </nav>
 </main>
 </body>
 </html>
