@@ -21,21 +21,23 @@ button:hover{background:#e1d1ff}
 :focus-visible{outline:3px solid #f1dcff;outline-offset:4px}
 .feedback{min-height:1.55em;margin-top:.8rem}
 [hidden]{display:none}
-.brain-map{--glow:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;max-width:33rem;margin:1.25rem auto;padding:14px;isolation:isolate;position:relative}
+.brain-map{--glow:0;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(.4rem,1.2vw,.8rem);padding:clamp(.3rem,1.5vw,1rem);isolation:isolate;position:relative}
 .brain-map::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:46% 46% 44% 44% / 25% 25% 33% 33%;background:#151025;box-shadow:0 0 65px #b45cff;opacity:var(--glow);pointer-events:none}
-.region{background:color-mix(in srgb,#221831,var(--region) calc(var(--glow) * 45%));border:1px solid color-mix(in srgb,var(--region) 48%,#20162d);color:#f6edff;border-radius:40% 26% 38% 22% / 30% 55% 30% 55%;min-height:54px;padding:.55rem .7rem;font-size:.85rem;overflow-wrap:anywhere}
+.region{background:color-mix(in srgb,#221831,var(--region) calc(var(--glow) * 45%));border:1px solid color-mix(in srgb,var(--region) 48%,#20162d);color:#f6edff;border-radius:40% 26% 38% 22% / 30% 55% 30% 55%;min-height:clamp(3.6rem,11vh,6.5rem);padding:.55rem .7rem;font-size:clamp(.95rem,2.2vw,1.35rem);line-height:1.25;overflow-wrap:anywhere}
 .region:nth-child(even){border-radius:26% 40% 22% 38% / 55% 30% 55% 30%}
 .region:nth-child(-n+2){border-radius:85% 27% 32% 15% / 90% 35% 48% 30%}
 .region:nth-child(2){border-radius:27% 85% 15% 32% / 35% 90% 30% 48%}
 .region:nth-last-child(-n+2){border-bottom-left-radius:60%;border-bottom-right-radius:60%}
 
-.entry{min-height:100vh;display:grid;align-content:center;justify-items:center}
+.entry,.game-page{min-height:100vh;display:grid;align-content:center;justify-items:center;padding-block:1.5rem}
 #welcome,#training{width:min(100%,44rem);margin-inline:auto}
 #welcome input{width:min(100%,22rem);margin-bottom:.85rem}
-.brain-map:not([hidden]){display:grid;width:min(100%,33rem);margin:0}
+.brain-map:not([hidden]){display:grid;width:min(100%,56rem);margin:0}
 .region{display:grid;place-content:center;text-align:center}
-.region small{display:block;font-weight:500}
+.region small{display:block;font-weight:500;font-size:.8em;margin-top:.2rem}
 a.region{text-decoration:none;font-weight:800;border-color:#c7afff}
 a.region:hover,a.region:focus-visible{background:#543a77;color:white}
 span.region{color:#ccc3e0}
 
+.game-navigation{display:flex;justify-content:flex-end;margin-bottom:1rem}
+.game-navigation a{display:inline-flex;align-items:center;min-height:44px;padding-inline:.5rem}
