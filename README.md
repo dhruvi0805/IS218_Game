@@ -1,8 +1,8 @@
 # IS218 Game · NeuroNet
 
-[Visit the live NeuroNet research site](https://dhruvi0805.github.io/IS218_Game/)
+[Play NeuroNet](https://dhruvi0805.github.io/IS218_Game/play/) · [Visit the live NeuroNet research site](https://dhruvi0805.github.io/IS218_Game/)
 
-NeuroNet is an IS218 project that explores how introductory college students read their progress in a practice game. The planned first release follows one pattern challenge from sign-in through a saved score and private attempt history.
+NeuroNet is an IS218 project that explores how introductory college students read their progress in a practice game. The playable browser demo has five number sequences, feedback after each answer, and an attempt history saved in the current browser. The project plan describes the account-backed release.
 
 ## Repository contents
 
@@ -20,3 +20,4 @@ npm run docs:dev
 ```
 
 Run `npm run docs:build` to build the site, then `npm run docs:preview` to preview that build locally.
+
